@@ -1,0 +1,127 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Luxury Jewels</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Luxury Jewels</div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="login.html"><i class="far fa-user"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <h1>Welcome Back</h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">Login</button>
+                    <a href="register.html" class="auth-link">Create an account</a>
+                </div>
+                <script>
+                    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('loginEmail').value;
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    try {
+                        const response = await api.login(email, password);
+                        
+                        if (response.success) {
+                            alert('Login successful!');
+                            document.querySelector('.fa-user').classList.add('logged-in');
+                            loginModal.style.display = 'none';
+                            window.location.href = 'account.html';
+                        } else {
+                            alert(response.message || 'Login failed');
+                        }
+                    } catch (error) {
+                        alert(error.message || 'Login failed');
+                    }
+                });
+                  </script>
+            </form>
+        </div>
+    </main>
+
+  
+    
+    
+</body>
+</html>
+
+
+   
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="necklaces.html">Necklaces</a></li>
+                    <li><a href="rings.html">Rings</a></li>
+                    <li><a href="earrings.html">Earrings</a></li>
+                    <li><a href="bracelets.html">Bracelets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Luxury Jewels. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

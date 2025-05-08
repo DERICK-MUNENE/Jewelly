@@ -1,0 +1,120 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Luxury Jewels</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <h1>Create Account</h1>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn">Register</button>
+                    <a href="login.html" class="auth-link">Already have an account?</a>
+                </div>
+
+                <script>
+                    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('registerName').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirm').value;
+    
+    if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+    }
+    
+    try {
+        const response = await api.register(name, email, password);
+        
+        if (response.success) {
+            alert('Registration successful! You are now logged in.');
+            document.querySelector('.fa-user').classList.add('logged-in');
+            registerModal.style.display = 'none';
+            window.location.href = 'account.html';
+        } else {
+            alert(response.message || 'Registration failed');
+        }
+    } catch (error) {
+        alert(error.message || 'Registration failed');
+    }
+});
+                </script>
+            </form>
+        </div>
+    </main>
+
+  
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="necklaces.html">Necklaces</a></li>
+                    <li><a href="rings.html">Rings</a></li>
+                    <li><a href="earrings.html">Earrings</a></li>
+                    <li><a href="bracelets.html">Bracelets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 202 Luxury Jewels. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

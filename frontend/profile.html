@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | Luxury Jewels</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+   
+    <nav class="navbar">
+        <div class="logo">Luxury Jewels</div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="login.html"><i class="far fa-user"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+
+    <main class="account-page">
+        <div class="account-sidebar">
+            <div class="account-header">
+                <div class="account-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h2 id="account-name">Welcome Back</h2>
+            </div>
+            
+            <nav class="account-menu">
+                <a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a>
+                <a href="orders.html"><i class="fas fa-box"></i> Orders</a>
+                <a href="addresses.html"><i class="fas fa-map-marker-alt"></i> Addresses</a>
+                <a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a>
+                <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </div>
+        
+        <div class="account-content">
+            <h1>My Profile</h1>
+            
+            <div class="account-details">
+                <div class="detail-row">
+                    <span class="detail-label">Full Name:</span>
+                    <span class="detail-value" id="profile-name">Loading...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Email:</span>
+                    <span class="detail-value" id="profile-email">Loading...</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Member Since:</span>
+                    <span class="detail-value" id="profile-join-date">Loading...</span>
+                </div>
+            </div>
+            
+            <h2>Recent Orders</h2>
+            <div class="recent-orders" id="recent-orders">
+                <!-- Orders will be loaded via JavaScript -->
+                <p>Loading your orders...</p>
+            </div>
+        </div>
+    </main>
+
+    
+    <script>
+        // Load User Data
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Display user info
+            document.getElementById('account-name').textContent = currentUser.name;
+            document.getElementById('profile-name').textContent = currentUser.name;
+            document.getElementById('profile-email').textContent = currentUser.email;
+            document.getElementById('profile-join-date').textContent = new Date(currentUser.joinDate || Date.now()).toLocaleDateString();
+            
+            // Display orders
+            const ordersContainer = document.getElementById('recent-orders');
+            if (currentUser.orders && currentUser.orders.length > 0) {
+                ordersContainer.innerHTML = '';
+                
+                // Show last 3 orders
+                const recentOrders = currentUser.orders.slice(0, 3);
+                
+                recentOrders.forEach(order => {
+                    const orderElement = document.createElement('div');
+                    orderElement.className = 'order-card';
+                    
+                    const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
+                    const totalAmount = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    
+                    orderElement.innerHTML = `
+                        <div class="order-header">
+                            <span class="order-id">Order #${order.id}</span>
+                            <span class="order-date">${new Date(order.date).toLocaleDateString()}</span>
+                        </div>
+                        <div class="order-details">
+                            <span>${totalItems} items</span>
+                            <span>$${totalAmount.toFixed(2)}</span>
+                            <span class="order-status">${order.status}</span>
+                        </div>
+                        <a href="/order-details.html?id=${order.id}" class="order-link">View Details</a>
+                    `;
+                    
+                    ordersContainer.appendChild(orderElement);
+                });
+                
+                if (currentUser.orders.length > 3) {
+                    const viewAll = document.createElement('a');
+                    viewAll.href = 'orders.html';
+                    viewAll.className = 'view-all';
+                    viewAll.textContent = 'View All Orders';
+                    ordersContainer.appendChild(viewAll);
+                }
+            } else {
+                ordersContainer.innerHTML = '<p>You have no orders yet.</p>';
+            }
+            
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>

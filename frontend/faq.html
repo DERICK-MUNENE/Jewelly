@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Luxury Jewels</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+ 
+    <nav class="navbar">
+        <div class="logo">Luxury Jewels</div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="login.html"><i class="far fa-user"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+    <main class="page-content">
+        <div class="page-header">
+            <h1>Frequently Asked Questions</h1>
+            <p class="subtitle">Find answers to common questions</p>
+        </div>
+        
+        <section class="faq-section">
+            <div class="faq-categories">
+                <button class="category-btn active" data-category="all">All Questions</button>
+                <button class="category-btn" data-category="orders">Orders</button>
+                <button class="category-btn" data-category="shipping">Shipping</button>
+                <button class="category-btn" data-category="products">Products</button>
+                <button class="category-btn" data-category="returns">Returns</button>
+            </div>
+            
+            <div class="faq-accordion">
+                <!-- Order Questions -->
+                <div class="faq-item" data-category="orders">
+                    <button class="faq-question">How do I track my order?</button>
+                    <div class="faq-answer">
+                        <p>Once your order ships, you'll receive a confirmation email with tracking information. You can also track your order by logging into your account.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="orders">
+                    <button class="faq-question">Can I modify my order after placing it?</button>
+                    <div class="faq-answer">
+                        <p>We process orders quickly to ensure fast delivery. If you need to modify your order, please contact us immediately at service@luxuryjewels.com.</p>
+                    </div>
+                </div>
+                
+                <!-- Shipping Questions -->
+                <div class="faq-item" data-category="shipping">
+                    <button class="faq-question">Do you offer international shipping?</button>
+                    <div class="faq-answer">
+                        <p>Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by destination.</p>
+                    </div>
+                </div>
+                
+                <!-- Product Questions -->
+                <div class="faq-item" data-category="products">
+                    <button class="faq-question">How do I determine my ring size?</button>
+                    <div class="faq-answer">
+                        <p>We provide a printable ring sizing guide on our product pages. For the most accurate measurement, visit a local jeweler.</p>
+                    </div>
+                </div>
+                
+                <!-- Return Questions -->
+                <div class="faq-item" data-category="returns">
+                    <button class="faq-question">What is your return policy?</button>
+                    <div class="faq-answer">
+                        <p>We offer a 30-day return policy for unused items in original condition. Personalized items cannot be returned.</p>
+                    </div>
+                </div>
+                
+                <!-- 15 more FAQ items -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="necklaces.html">Necklaces</a></li>
+                    <li><a href="rings.html">Rings</a></li>
+                    <li><a href="earrings.html">Earrings</a></li>
+                    <li><a href="bracelets.html">Bracelets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Luxury Jewels. All rights reserved.</p>
+        </div>
+   
+   
+    <script>
+        // FAQ Accordion Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.maxHeight;
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.style.maxHeight = null;
+                    ans.previousElementSibling.classList.remove('active');
+                });
+                
+                // Open clicked answer if it was closed
+                if (!isOpen) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    question.classList.add('active');
+                }
+            });
+        });
+        
+        // FAQ Category Filter
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                
+                // Update active button
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter questions
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation | Luxury Jewels</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Luxury Jewels</div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html"><i class="far fa-user"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+    <main class="confirmation-page">
+        <div class="confirmation-container">
+            <div class="confirmation-header">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>Thank You For Your Order!</h1>
+                <p class="order-number">Order #<span id="order-id">Loading...</span></p>
+                <p class="confirmation-text">We've sent a confirmation email with your order details. Your items will be shipped soon.</p>
+            </div>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-section">
+                        <h3>Shipping Address</h3>
+                        <div id="shipping-address">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="summary-section">
+                        <h3>Payment Method</h3>
+                        <div id="payment-method">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="summary-section">
+                        <h3>Order Details</h3>
+                        <div class="order-items" id="order-items">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                        <div class="order-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Shipping</span>
+                                <span id="shipping">Free</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax</span>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total</span>
+                                <span id="grand-total">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirmation-actions">
+                <a href="necklaces.html" class="btn">Continue Shopping</a>
+                <a href="profile.html" class="btn-outline">View Order History</a>
+            </div>
+
+            <div class="shipping-info">
+                <h3>Shipping Information</h3>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <i class="fas fa-box"></i>
+                        <h4>Order Processing</h4>
+                        <p>Your order is being prepared for shipment. Processing usually takes 1-2 business days.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h4>Delivery Time</h4>
+                        <p>Standard shipping: 3-5 business days<br>Express shipping: 1-2 business days</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-headset"></i>
+                        <h4>Need Help?</h4>
+                        <p>Contact our customer service at <a href="mailto:support@luxuryjewels.com">support@luxuryjewels.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="necklaces.html">Necklaces</a></li>
+                    <li><a href="rings.html">Rings</a></li>
+                    <li><a href="earrings.html">Earrings</a></li>
+                    <li><a href="bracelets.html">Bracelets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Luxury Jewels. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load Order Data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get order ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            
+            if (orderId) {
+                document.getElementById('order-id').textContent = orderId;
+                
+                // Try to get order details from localStorage or user account
+                let order = null;
+                
+                // Check if user is logged in
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.orders) {
+                    order = currentUser.orders.find(o => o.id.toString() === orderId);
+                }
+                
+                // If not found in user account, check localStorage (for guest checkout)
+                if (!order) {
+                    const recentOrder = JSON.parse(localStorage.getItem('recentOrder'));
+                    if (recentOrder && recentOrder.id.toString() === orderId) {
+                        order = recentOrder;
+                    }
+                }
+                
+                if (order) {
+                    // Display order details
+                    displayOrderDetails(order);
+                } else {
+                    // Order not found
+                    document.querySelector('.confirmation-header h1').textContent = 'Order Not Found';
+                    document.querySelector('.confirmation-text').textContent = 'We couldn\'t locate your order details. Please contact customer service.';
+                    document.querySelector('.order-summary').style.display = 'none';
+                }
+            } else {
+                // No order ID in URL
+                document.querySelector('.confirmation-header h1').textContent = 'Order Confirmation';
+                document.querySelector('.confirmation-text').textContent = 'Thank you for your purchase!';
+                document.querySelector('.order-summary').style.display = 'none';
+            }
+        });
+        
+        function displayOrderDetails(order) {
+            // Display shipping address
+            const shippingAddress = document.getElementById('shipping-address');
+            if (order.shipping) {
+                shippingAddress.innerHTML = `
+                    <p>${order.shipping.name}</p>
+                    <p>${order.shipping.address}</p>
+                    <p>${order.shipping.city}, ${order.shipping.zip}</p>
+                    <p>${order.shipping.country}</p>
+                    <p>${order.shipping.phone}</p>
+                `;
+            }
+            
+            // Display payment method
+            const paymentMethod = document.getElementById('payment-method');
+            if (order.payment) {
+                paymentMethod.innerHTML = `
+                    <p>${order.payment.method}</p>
+                    <p>Ending in ${order.payment.cardLast4}</p>
+                `;
+            }
+            
+            // Display order items
+            const orderItems = document.getElementById('order-items');
+            if (order.items && order.items.length > 0) {
+                orderItems.innerHTML = '';
+                
+                let subtotal = 0;
+                
+                order.items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'order-item';
+                    
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    itemElement.innerHTML = `
+                        <div class="item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)} × ${item.quantity}</p>
+                        </div>
+                        <div class="item-total">
+                            $${itemTotal.toFixed(2)}
+                        </div>
+                    `;
+                    
+                    orderItems.appendChild(itemElement);
+                });
+                
+                // Calculate totals
+                const taxRate = 0.08; // 8% tax
+                const tax = subtotal * taxRate;
+                const grandTotal = subtotal + tax;
+                
+                document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+                document.getElementById('grand-total').textContent = `$${grandTotal.toFixed(2)}`;
+            }
+        }
+    </script>
+</body>
+</html>

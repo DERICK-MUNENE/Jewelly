@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart | Luxury Jewels</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  
+    <nav class="navbar">
+        <div class="logo">Luxury Jewels</div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="login.html"><i class="far fa-user"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+    <main class="cart-page">
+        <h1>Your Shopping Cart</h1>
+        
+        <div class="cart-container">
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="https://images.unsplash.com/photo-1603974372035-9d7860a7eb7b" alt="Diamond Pendant">
+                    <div class="item-details">
+                        <h3>Eternal Diamond Pendant</h3>
+                        <p>18K White Gold</p>
+                        <p class="price">$1,299.00</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="qty-btn">-</button>
+                                <input type="number" value="1" min="1">
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="remove-item">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More cart items here -->
+            </div>
+            
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>$1,299.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span>$103.92</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>$1,402.92</span>
+                </div>
+                
+                <div class="promo-code">
+                    <input type="text" placeholder="Promo Code">
+                    <button class="apply-btn">Apply</button>
+                </div>
+                
+                <a href="checkout.html" class="checkout-btn">Proceed to Payment</a>
+                <a href="necklaces.html" class="continue-shopping">Continue Shopping</a>
+            </div>
+        </div>
+
+<script>
+    // Add to cart handler
+async function handleAddToCart(e) {
+    const productId = parseInt(e.target.getAttribute('data-id'));
+    
+    try {
+        const response = await api.addToCart(productId);
+        
+        if (response.success) {
+            updateCartCount(response.cart_count);
+            showAlert(`${e.target.closest('.product-card').querySelector('.product-title').textContent} has been added to your cart!`);
+        } else {
+            showAlert(response.message || 'Failed to add to cart', 'error');
+        }
+    } catch (error) {
+        showAlert(error.message || 'Failed to add to cart', 'error');
+    }
+}
+
+// Cart page initialization
+async function initializeCartPage() {
+    try {
+        const response = await api.getCart();
+        
+        if (response.success) {
+            renderCartItems(response.data);
+        } else {
+            showError('Failed to load cart');
+        }
+    } catch (error) {
+        showError(error.message);
+    }
+}
+
+function renderCartItems(cartItems) {
+    cartItemsContainer.innerHTML = '';
+    
+    if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+        cartTotal.textContent = '$0.00';
+        return;
+    }
+    
+    let total = 0;
+    
+    cartItems.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+            <img src="${item.image_url}" alt="${item.title}">
+            <div class="cart-item-info">
+                <h3>${item.title}</h3>
+                <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                <p>Subtotal: $${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+            <div class="cart-item-actions">
+                <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+                <button class="remove-btn" data-id="${item.id}">Remove</button>
+            </div>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+        
+        total += item.price * item.quantity;
+    });
+    
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+    
+    // Add event listeners
+    document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', updateCartItemQuantity);
+    });
+    
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', removeCartItem);
+    });
+}
+
+async function updateCartItemQuantity(e) {
+    const productId = parseInt(e.target.getAttribute('data-id'));
+    const action = e.target.getAttribute('data-action');
+    
+    try {
+        const item = cartItems.find(item => item.id === productId);
+        let newQuantity = item.quantity;
+        
+        if (action === 'increase') {
+            newQuantity += 1;
+        } else if (action === 'decrease' && item.quantity > 1) {
+            newQuantity -= 1;
+        }
+        
+        const response = await api.updateCartItem(productId, newQuantity);
+        
+        if (response.success) {
+            initializeCartPage(); // Refresh cart
+        } else {
+            showAlert(response.message || 'Failed to update quantity', 'error');
+        }
+    } catch (error) {
+        showAlert(error.message || 'Failed to update quantity', 'error');
+    }
+}
+
+async function removeCartItem(e) {
+    const productId = parseInt(e.target.getAttribute('data-id'));
+    
+    try {
+        const response = await api.removeFromCart(productId);
+        
+        if (response.success) {
+            initializeCartPage(); // Refresh cart
+        } else {
+            showAlert(response.message || 'Failed to remove item', 'error');
+        }
+    } catch (error) {
+        showAlert(error.message || 'Failed to remove item', 'error');
+    }
+}
+</script>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="necklaces.html">Necklaces</a></li>
+                    <li><a href="rings.html">Rings</a></li>
+                    <li><a href="earrings.html">Earrings</a></li>
+                    <li><a href="bracelets.html">Bracelets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 luxury Jewels. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+</body>
+</html>

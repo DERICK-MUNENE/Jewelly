@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?php echo isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : ''; ?>">
+    <title>Luxury Jewels - Premium Jewelry Collections</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Luxury Jewels</div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="necklaces.html">Necklaces</a></li>
+            <li><a href="rings.html">Rings</a></li>
+            <li><a href="earrings.html">Earrings</a></li>
+            <li><a href="bracelets.html">Bracelets</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="nav-icons">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="login.html"><i class="far fa-user"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Timeless Elegance</h1>
+            <p>Discover our exquisite collection of handcrafted jewelry</p>
+            <a href="necklaces.html" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section class="collections">
+        <h2 class="section-title">Our Collections</h2>
+        <div class="collection-grid">
+            <div class="collection-card">
+                <img src="images/n1.jpg" alt="Necklaces">
+                <div class="collection-info">
+                    <h3>Necklaces</h3>
+                    <a href="necklaces.html" class="btn-outline">View Collection</a>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="images/r1.jpg" alt="Rings">
+                <div class="collection-info">
+                    <h3>Rings</h3>
+                    <a href="rings.html" class="btn-outline">View Collection</a>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="images/e10.jpg" alt="Earrings">
+                <div class="collection-info">
+                    <h3>Earrings</h3>
+                    <a href="earrings.html" class="btn-outline">View Collection</a>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="images/b4.jpg" alt="Bracelets">
+                <div class="collection-info">
+                    <h3>Bracelets</h3>
+                    <a href="bracelets.html" class="btn-outline">View Collection</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <h2 class="section-title">Featured Jewelry</h2>
+        <div class="products-grid">
+            <!-- Products will be loaded via JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>Artisan Craftsmanship</h2>
+            <p>Each piece in our collection is handcrafted by master jewelers using ethically sourced gemstones and recycled precious metals.</p>
+            <a href="about.html" class="btn">Our Story</a>
+        </div>
+        <div class="about-image">
+            <img src="images/jm.jpg" alt="Jewelry Making">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="necklaces.html">Necklaces</a></li>
+                    <li><a href="rings.html">Rings</a></li>
+                    <li><a href="earrings.html">Earrings</a></li>
+                    <li><a href="bracelets.html">Bracelets</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Luxury Jewels. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
